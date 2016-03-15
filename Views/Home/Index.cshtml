@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
@@ -8,33 +7,40 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
 <h2>Students</h2>
+<script type="text/javascript" language="javascript">
+    function ClearResults() {
+        $("#divStudents").empty();
+    }
+
+    function cancelcall() {
+        if (1 == 2) {
+            return true;
+        } else {
+            alert("Action Method will not be invoked");
+            return false;
+        }
+    }
+
+    function CountRows() {
+        
+        alert(($("#studentsTable tr").length-1)+ '  rows retrieved');
+    }
+
+</script>
+
+Current Time = @DateTime.Now.ToLongTimeString();
+<br/>
+<span style="color: blue"></span>
+@Ajax.ActionLink("All", "All", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "divStudents", InsertionMode = InsertionMode.Replace, LoadingElementId = "divLoading", OnBegin = "ClearResults", OnSuccess = "CountRows"})
+
 
 <span style="color: blue"></span>
-@Ajax.ActionLink("All","All",new AjaxOptions()
-                                 {
-                                     HttpMethod = "Get",
-                                     UpdateTargetId = "divStudents",
-                                     InsertionMode = InsertionMode.Replace
-                                 })
-
+@Ajax.ActionLink("Top 3", "Top3", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "divStudents", InsertionMode = InsertionMode.Replace, LoadingElementId = "divLoading", OnBegin = "ClearResults", OnSuccess = "CountRows" })
 
 <span style="color: blue"></span>
-@Ajax.ActionLink("Top 3", "Top3", new AjaxOptions()
-{
-    HttpMethod = "Get",
-    UpdateTargetId = "divStudents",
-    InsertionMode = InsertionMode.Replace
-})
+@Ajax.ActionLink("Bottom 3", "Bottom3", new AjaxOptions { HttpMethod = "Get", UpdateTargetId = "divStudents", InsertionMode = InsertionMode.Replace, LoadingElementId = "divLoading", OnBegin = "ClearResults", OnSuccess = "CountRows" })
 
-<span style="color: blue"></span>
-@Ajax.ActionLink("Bottom 3","Bottom3",new AjaxOptions()
-                                 {
-                                     HttpMethod = "Get",
-                                     UpdateTargetId = "divStudents",
-                                     InsertionMode = InsertionMode.Replace
-                                 })
-
-
-<div id="divStudents">
-    
+<div id="divStudents"></div>
+<div id="divLoading" style="display: none">
+    <img src="~/spinner.gif"/>
 </div>

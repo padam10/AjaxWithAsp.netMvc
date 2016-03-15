@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading;
 
 namespace AjaxWithAsp.netMvc.Controllers
 {
@@ -21,6 +22,7 @@ namespace AjaxWithAsp.netMvc.Controllers
 
         public PartialViewResult All()
         {
+            //Thread.Sleep(4000);
             List<Student> model = db.Students.ToList();
 
             return this.PartialView("_Student", model);
@@ -28,6 +30,7 @@ namespace AjaxWithAsp.netMvc.Controllers
 
         public PartialViewResult Top3()
         {
+            //Thread.Sleep(4000);
             List<Student> model = db.Students.OrderByDescending(x => x.TotalMarks).Take(3).ToList();
 
             return this.PartialView("_Student", model);
